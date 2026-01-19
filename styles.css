@@ -2856,3 +2856,30 @@ input:checked + .slider::before {
     height: 12px !important;
   }
 }
+/* Apple Watch: reduce blur / improve text rendering */
+@media (max-width: 320px), (max-height: 420px) {
+
+  /* Ensure we’re not stuck in a “scaled” rendering */
+  html, body {
+    -webkit-text-size-adjust: 100% !important;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Disable transforms that can cause bitmap scaling blur */
+  .sidebar,
+  .page,
+  .card,
+  .track-item,
+  .now-playing-bar {
+    transform: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+
+  /* Prevent animations from looking smeared on tiny screens */
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
