@@ -2758,3 +2758,101 @@ input:checked + .slider::before {
         font-size: 4rem;
     }
 }
+/* ===============================
+   Watch mode (Apple Watch Safari)
+   Goal: allow tapping Login from hamburger menu
+   =============================== */
+@media (max-width: 320px), (max-height: 420px) {
+
+  /* Fix broken touch + scrolling on watch Safari */
+  html {
+    overflow: auto !important;
+    height: auto !important;
+  }
+
+  body {
+    position: static !important;
+    overflow: auto !important;
+    height: auto !important;
+    width: auto !important;
+  }
+
+  /* Stack layout vertically instead of desktop grid */
+  .app-container {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+  }
+
+  /* === SIDEBAR / HAMBURGER MENU FIX === */
+
+  /* Keep sidebar usable */
+  .sidebar {
+    display: flex !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100% !important;
+    width: 85vw !important;
+    max-width: 280px !important;
+    transform: translateX(-100%);
+    z-index: 2000 !important;
+    pointer-events: auto !important;
+    background-color: var(--background);
+  }
+
+  /* Sidebar open state (already used by JS) */
+  .sidebar.is-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Overlay must NOT steal taps */
+  #sidebar-overlay {
+    display: block !important;
+    pointer-events: none !important;
+    z-index: 1999 !important;
+  }
+
+  /* Make menu items easy to tap */
+  .sidebar-nav .nav-item a {
+    min-height: 56px !important;
+    padding: 1rem !important;
+    font-size: 18px !important;
+  }
+
+  /* === GENERAL TAP TARGET FIX === */
+  button,
+  a,
+  [role="button"],
+  input,
+  select {
+    min-height: 52px !important;
+    min-width: 52px !important;
+    font-size: 16px !important;
+  }
+
+  /* === PLAYER CONTROLS FIX === */
+  .player-controls .buttons button,
+  .player-controls .buttons .play-pause-btn,
+  .volume-controls button {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    border-radius: 999px !important;
+  }
+
+  /* Stack now-playing bar vertically */
+  .now-playing-bar {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto auto !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+
+  /* Make sliders easier to touch */
+  .progress-bar,
+  .volume-controls .volume-bar {
+    height: 12px !important;
+  }
+}
